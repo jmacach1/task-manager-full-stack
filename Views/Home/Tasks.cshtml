@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+
+@* <link rel="stylesheet" href="~/css/app.css" /> *@
+<main class="main-in">
+    <section class="taskList card">
+        <h3>List</h3>
+        <div id="taskList">
+        </div>
+    </section>
+
+    <section id="details" class="details card">
+        <h3>Task Details</h3>
+
+        <form id="taskForm" class="needs-validation">
+            <div class="form-group">
+                <label for="_id">Id</label>
+                <input id="_id" name="_id" type="text" class="form-control" disabled />
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" class="form-control" required />
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <!-- Important -->
+            <div class="form-group">
+                <input id="important" type="checkbox" class="form-check-input" name="important" />
+                <label class="form-check-label" for="important">
+                    <span class="importantStar"><i class="fa fa-star"></i></span>
+                    Important
+                </label>
+            </div>
+
+            <!-- Due Date -->
+            <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input id="dueDate" type="datetime-local" class="form-control" name="dueDate" />
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input id="location" type="text" class="form-control" name="location" />
+            </div>
+
+            <div class="form-group">
+                <label for="alertText">Alert Text</label>
+                <input id="alertText" type="text" class="form-control" name="alertText" />
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option selected>-- Select Status --</option>
+                    <option>Pending</option>
+                    <option>In Progress</option>
+                    <option>Blocked</option>
+                    <option>Done</option>
+                </select>
+            </div>
+
+            <div class="form-group buton-div">
+                <input type="submit" class="btn tm-btn" value="Create Task" />
+            </div>
+        </form>
+    </section>
+</main>
+
+<script src="~/js/task.js"></script>
+<script src="~/js/testAddTask.js"></script>
+<script src="~/js/app.js"></script>

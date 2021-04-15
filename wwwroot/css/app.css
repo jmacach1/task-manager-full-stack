@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  font-family: "IBM Plex Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section {
+  display: inline-block;
+  width: 200px;
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* header */
+.header-in {
+  padding: 1rem;
+}
+
+.header-in h1 {
+  font-size: 1.2;
+  font-weight: 900;
+  color: aliceblue;
+  text-shadow: 2px 2px 2px lightblue;
+}
+
+/* main */
+.main-in {
+  display: flex;
+  flex-direction: column;
+  background-color: #0093e9;
+  height: 100%;
+}
+
+.main-in section {
+  padding: 1rem;
+  width: 100%;
+}
+
+.details {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#taskForm > div {
+  padding: 0.25rem 0;
+}
+
+/* important chechbox */
+#important {
+  display: none;
+}
+
+#important:checked + label > .importantStar {
+  color: goldenrod;
+  text-shadow: 2px 2px 4px gold;
+}
+
+.importantStar {
+  color: grey;
+  font-size: 1.5rem;
+  transition: color 200ms linear;
+  transition: transform 0.25s ease-in;
+}
+
+.importantStar:hover {
+  transform: scale(1.1);
+}
+
+.buton-div {
+  text-align: right;
+  padding: 1rem 0;
+}
+
+.tm-btn {
+  color: white;
+  font-size: 1.2rem;
+  background-color: goldenrod;
+  transition: transform 0.25s ease-in;
+}
+
+.tm-btn:hover {
+  color: white;
+  font-size: 1.2rem;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 4px black;
+}
+
+/* taskList */
+.taskList {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.tm-card-task {
+  margin-bottom: 0.5rem;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.tm-card-task p {
+  margin: 0;
+}
+
+.tm-card-task .title {
+  font-weight: bold;
+}
+
+.tm-card-task .star {
+  color: goldenrod;
+}
+
+.task-delete {
+  float: right;
+  color: rgb(218, 32, 32);
+}
+
+/* footer */
+.footer-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+}
+
+/**
+  modal
+*/
+.tm-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(134, 134, 134, 0.5);
+  z-index: 1;
+}
+
+.tm-modal-content {
+  padding: 20px;
+  width: 70%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(114, 4, 4);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 720px) {
+  .main-in {
+    flex-direction: row;
+  }
+
+  .main-in section {
+    width: fit-content;
+  }
+
+  .taskList {
+    flex-grow: 5;
+  }
+
+  .details {
+    flex-grow: 2;
+  }
+
+  .task-head-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
