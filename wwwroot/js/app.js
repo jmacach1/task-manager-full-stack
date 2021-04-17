@@ -1,5 +1,5 @@
 const dev = true;
-const URL = `http://fsdi.azurewebsites.net/api`;
+// const URL = `http://fsdi.azurewebsites.net/api`;
 let taskForm, taskList;
 const taskInputs = {};
 const taskDB = new Map();
@@ -25,7 +25,7 @@ function initializeDomElements() {
   taskInputs[TASK_CONST.LOCATION] = $('#' + TASK_CONST.LOCATION);
   taskInputs[TASK_CONST.ALERT_TEXT]  = $('#' + TASK_CONST.ALERT_TEXT);
   taskInputs[TASK_CONST.STATUS] = $('#' + TASK_CONST.STATUS);
-  modal.modal = $('#taskInputErrorModal');
+  modal.modal = $('#tmModal');
   modal.message = $('#modalMessage');
   modal.closeBtn = $('#closeModal');
   modal.modal.hide();
@@ -40,8 +40,10 @@ function fetchTask() {
   console.log("Ajax GET - fetching tasks from server...")
   $.ajax({
     type: "GET",
-    url: URL + "/tasks",
+    // url: URL + "/tasks",
+    url: '/api/gettasks',
     success: function (res) {
+      console.log("res", res);
       const filtered = res.filter(task => task.user === 'Jerald');
       for (const task of filtered) {
         taskDB.set(task.id, task);
@@ -68,8 +70,9 @@ function setTaskListeners() {
   for (const task of tasks) {
     $(task).off();
     $(task).click(function (e) {
-      const id = Number(e.currentTarget.dataset.id);
+      const id = e.currentTarget.dataset.id;
       const task = taskDB.get(id);
+      console.log("id task ", id, task);
       populateDetails(task);
     })
   }
@@ -147,13 +150,15 @@ function httpPostSendTask(task) {
   console.log("Making Ajax request - sending Task...")
   $.ajax({
     type: "POST",
-    url: URL + "/tasks",
+    // url: URL + "/tasks",
+    url: "/api/savetask",
     contentType: 'application/json',
     data: JSON.stringify(task),
     success: function (res) {
-      taskDB.set(task.id, task);
+      const taskReturned = res;
+      taskDB.set(taskReturned.id, taskReturned);
       displayTasks();
-      console.log(res);
+      console.log("taskReturned", taskReturned);
     },
     error: function (error) {
       console.error(error);
@@ -192,6 +197,7 @@ function createTaskCard(task) {
 
 function populateDetails(task) {
   console.log("populateDetails(task)");
+  console.log("task", task)
   taskInputs[TASK_CONST.ID].val(task.id);
   taskInputs[TASK_CONST.TITLE].val(task.title);
   taskInputs[TASK_CONST.DESCRIPTION].val(task.description);

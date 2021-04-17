@@ -141,6 +141,8 @@ main {
   width: 100vw;
   height: 100vh;
   position: fixed;
+  left: 0;
+  top: 0;
   background-color: rgba(134, 134, 134, 0.5);
   z-index: 1;
 }
@@ -153,7 +155,7 @@ main {
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 4rem;
   font-weight: bold;
 }
 
