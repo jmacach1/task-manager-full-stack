@@ -2,6 +2,7 @@ const dev = true;
 // const URL = `http://fsdi.azurewebsites.net/api`;
 let taskForm, taskList;
 const taskInputs = {};
+const taskControls = {};
 const taskDB = new Map();
 const modal = {}
 
@@ -25,10 +26,12 @@ function initializeDomElements() {
   taskInputs[TASK_CONST.LOCATION] = $('#' + TASK_CONST.LOCATION);
   taskInputs[TASK_CONST.ALERT_TEXT]  = $('#' + TASK_CONST.ALERT_TEXT);
   taskInputs[TASK_CONST.STATUS] = $('#' + TASK_CONST.STATUS);
+  taskControls[TASK_CONST.TASK_DELETE_BTN] = $('#' + TASK_CONST.TASK_DELETE_BTN);
   modal.modal = $('#tmModal');
   modal.message = $('#modalMessage');
   modal.closeBtn = $('#closeModal');
   modal.modal.hide();
+  taskControls["delete_btn_div"] = $('.taskDeleteBtnDiv');
 }
 
 function setEventListeners() {
@@ -70,9 +73,10 @@ function setTaskListeners() {
   for (const task of tasks) {
     $(task).off();
     $(task).click(function (e) {
-      const id = e.currentTarget.dataset.id;
+      const id = Number(e.currentTarget.dataset.id);
       const task = taskDB.get(id);
-      console.log("id task ", id, task);
+      console.log(taskDB);
+      console.log("id :", id, "task :", task);
       populateDetails(task);
     })
   }
@@ -144,13 +148,13 @@ function clearTaskFrom() {
   taskInputs[TASK_CONST.LOCATION].val("");
   taskInputs[TASK_CONST.ALERT_TEXT].val("");
   taskInputs[TASK_CONST.STATUS].children()[0].selected = true;
+  taskControls["delete_btn_div"].hide();
 }
 
 function httpPostSendTask(task) {
   console.log("Making Ajax request - sending Task...")
   $.ajax({
     type: "POST",
-    // url: URL + "/tasks",
     url: "/api/savetask",
     contentType: 'application/json',
     data: JSON.stringify(task),
@@ -206,6 +210,16 @@ function populateDetails(task) {
   taskInputs[TASK_CONST.LOCATION].val(task.location);
   taskInputs[TASK_CONST.ALERT_TEXT].val(task.alertText);
   taskInputs[TASK_CONST.STATUS].val(task.status);
+
+  if (task.id) {
+    taskControls["delete_btn_div"].show();
+    const deletebtn = taskControls[TASK_CONST.TASK_DELETE_BTN];
+    deletebtn.off();
+    deletebtn.click(function(e) {
+      e.preventDefault();
+      deleteTask(task.id);
+    })
+  }
 }
 
 // ajax request to delete task
@@ -213,10 +227,11 @@ function deleteTask(id) {
   console.log("Making Ajax request - deleting Task...")
   $.ajax({
     type: "DELETE",
-    url: `${URL}/tasks/${id}`,
+    url: `/api/deltask/${id}`,
     success: function (res) {
       taskDB.delete(id);
       displayTasks();
+      clearTaskFrom();
       console.log(res);
 
     },

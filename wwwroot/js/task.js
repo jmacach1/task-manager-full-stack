@@ -6,7 +6,8 @@ const TASK_CONST = {
   DUE_DATE: 'dueDate',
   LOCATION: 'location',
   ALERT_TEXT: 'alertText',
-  STATUS: 'status'
+  STATUS: 'status',
+  TASK_DELETE_BTN: 'taskDeleteBtn',
 }
 
 class Task {

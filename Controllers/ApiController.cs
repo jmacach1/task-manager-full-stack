@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using taskManager.Models;
-using System.Collections.Generic;
 
 namespace taskManager.Controllers
 {
@@ -14,13 +13,18 @@ namespace taskManager.Controllers
   {
 
     static List<Models.Task> data;
-    private readonly ILogger<ApiController> _logger;
 
-    public ApiController(ILogger<ApiController> logger)
+    DataContext dbContext;
+
+    public ApiController(DataContext db)
     {
-      _logger = logger;
-      if (data == null) data = new List<Models.Task>();
+      if (data == null)
+      {
+        data = new List<Models.Task>();
+      }
+      dbContext = db;
     }
+
 
     public IActionResult Test()
     {
@@ -30,7 +34,9 @@ namespace taskManager.Controllers
     [HttpGet]
     public IActionResult getTasks()
     {
-      return Json(data);
+      System.Console.WriteLine("Sending Tasks from DB");
+      List<Models.Task> tasks = dbContext.Tasks.ToList();
+      return Json(tasks);
     }
 
     [HttpPost]
@@ -38,11 +44,25 @@ namespace taskManager.Controllers
     {
       System.Console.WriteLine(taskToSave.Title);
       System.Console.WriteLine("Save tasks called!");
-      Guid guid = Guid.NewGuid();
-      taskToSave.ID = guid.ToString();
 
-      data.Add(taskToSave);
+      // Guid guid = Guid.NewGuid();
+      // taskToSave.ID = guid.ToString();
+
+      dbContext.Tasks.Add(taskToSave);
+      dbContext.SaveChanges();
+
       return Json(taskToSave);
+    }
+
+    [HttpDelete]
+    public IActionResult DelTask(int id = -1)
+    {
+      if (id == -1) return Json("unable to delete - no id given");
+
+      Models.Task t = dbContext.Tasks.Find(id);
+      dbContext.Tasks.Remove(t);
+      dbContext.SaveChanges();
+      return Ok("Server - Deleted Task id: " + id);
     }
 
   }
