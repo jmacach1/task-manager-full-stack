@@ -15,6 +15,9 @@
 
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet" />
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
@@ -44,6 +47,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                     asp-action="tasks">Tasks</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                    asp-action="contact">Contact</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -59,8 +66,7 @@
                 &copy; 2021 - taskManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("Scripts", required: false)
     </body>
