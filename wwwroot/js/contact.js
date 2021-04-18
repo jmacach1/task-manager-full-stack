@@ -12,7 +12,7 @@ const contactID = {
 }
 
 // Holds reference to HTML elements
-const contactPage = {};
+const contactPage = { };
 
 function init() {
   console.log("Contact Page")
@@ -29,6 +29,7 @@ function initializeDomElements() {
   for (let key in contactID) {
     const elementID = contactID[key];
     contactPage[elementID] = document.getElementById(elementID);
+    contactPage["$" + elementID] = $(contactPage[elementID]);
     console.log(`getting element ${elementID}, ${contactPage[elementID]}`);
   }
   console.log(contactPage);
@@ -36,15 +37,15 @@ function initializeDomElements() {
 
 function setEventListeners() {
   contactPage.contactForm.addEventListener('submit', submitContactForm);
-  $(contactPage.tmModal).hide();
+  contactPage.$tmModal.hide();
 }
 
 function submitContactForm(e) {
   e.preventDefault();
 
-  const name = $(contactPage.sender).val();
-  const email = $(contactPage.email).val();
-  const msg = $(contactPage.email).val();
+  const name = contactPage.$sender.val();
+  const email = contactPage.$email.val();
+  const msg = contactPage.$email.val();
   const messageToSend = {name, email, msg };
   if (!validateForm(messageToSend)) return;
 
@@ -80,21 +81,21 @@ function validateForm(message) {
 }
 
 function alertInputError(msg) {
-  $(contactPage.tmModal).text(msg);
-  $(contactPage.tmModal).show();
+  contactPage.$tmModal.text(msg);
+  contactPage.$tmModal.show();
 }
 
 function alertInputErrorClose() {
-  $(contactPage.tmModal).hide();
+  contactPage.$tmModal.hide();
 }
 
 init();
 
 function testContactData() {
   console.log("testContactData()");
-  $(contactPage.sender).val("Jerald");
-  $(contactPage.email).val("jerald@maca.com");
-  $(contactPage.message).val("Hello World!!! How Are you???");
+  contactPage.$sender.val("Jerald");
+  contactPage.$email.val("jerald@maca.com");
+  contactPage.$message.val("Hello World!!! How Are you???");
 }
 
 function testRegex() {
