@@ -134,5 +134,4 @@ function testRegex() {
     const passFail = emailRegex.test(test.email) === test.expected ? "Passed" : "Failed";
     console.log(test.email, test.expected, passFail); 
   }
-
 }
