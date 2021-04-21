@@ -10,9 +10,7 @@ namespace taskManager.Models
     public string Location { get; set; }
     public string AlertText { get; set; }
     public string Status { get; set; }
-
     public string User { get; set; }
-
   }
 }
 

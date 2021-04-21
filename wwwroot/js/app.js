@@ -31,11 +31,13 @@ function initializeDomElements() {
   modal.message = $('#modalMessage');
   modal.closeBtn = $('#closeModal');
   modal.modal.hide();
-  taskControls["delete_btn_div"] = $('.taskDeleteBtnDiv');
+  taskControls["delete_btn_div"] = $('#taskDeleteBtnDiv');
+  taskControls["clearBtn"] = $('#clearBtn');
 }
 
 function setEventListeners() {
   taskForm.addEventListener('submit', submitTaskForm);
+  taskControls.clearBtn.click(clearTaskFrom);
   modal.closeBtn.click(alertInputErrorClose);
 }
 
